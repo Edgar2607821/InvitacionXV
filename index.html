@@ -630,19 +630,50 @@
   }
 
   /* halo en pistache (respira) */
-  .seal::after{
-    content:"";
-    position:absolute; inset:-12px; border-radius:inherit;
-    box-shadow: 0 0 40px 10px rgba(146,197,127,.42);
-    opacity:.22; filter: blur(1.5px);
-    animation: glow 1.6s ease-in-out infinite;
-    pointer-events:none;
-  }
+/* --- Pulso adicional más notorio --- */
+.seal::after {
+  content: "";
+  position: absolute;
+  inset: -18px;
+  border-radius: inherit;
+  box-shadow: 0 0 50px 18px rgba(146,197,127,.5);
+  opacity: .3;
+  animation: pulseGlow 1.8s ease-in-out infinite;
+  pointer-events: none;
+}
 
-  @keyframes glow{
-    0%,100%{ opacity:.18; transform: scale(1); }
-    50%     { opacity:.42; transform: scale(1.04); }
-  }
+@keyframes pulseGlow {
+  0%,100% { transform: scale(1); opacity: .25; }
+  50%     { transform: scale(1.12); opacity: .55; }
+}
+
+/* --- Flecha indicadora --- */
+.arrow-hint {
+  position: absolute;
+  bottom: -45px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: arrowBounce 1.5s ease-in-out infinite;
+}
+
+.arrow-hint svg {
+  width: 36px;
+  height: 36px;
+  opacity: .9;
+  transform: rotate(180deg);
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,.2));
+}
+
+@keyframes arrowBounce {
+  0%, 100% { transform: translate(-50%, 0); opacity: 0.8; }
+  50%      { transform: translate(-50%, 10px); opacity: 1; }
+}
+
+/* --- En pantallas pequeñas la flecha se acerca más --- */
+@media (max-height: 600px) {
+  .arrow-hint { bottom: -30px; }
+}
+
 
   /* hover: un pelín más de relieve */
   .seal:hover{
@@ -856,6 +887,31 @@
         transform: translateY(0) scale(1);
         opacity: 1
       }
+
+footer{
+  margin-top:28px; text-align:center; color:#4b5563; font-size:.92rem;
+}
+footer .footer-note{
+  display:block;
+}
+footer .footer-icons{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:.8rem;
+  margin-top:.6rem;        /* <-- separación debajo de la frase */
+}
+footer .footer-icons svg{
+  width:42px; height:42px;
+  opacity:.95;
+  transition: transform .2s ease;
+  filter: drop-shadow(0 1px 0 rgb(146, 197, 127));
+}
+footer .footer-icons svg:hover{
+  transform: translateY(-1px) scale(1.03);
+}
+
+
     </style>
   </head>
 
@@ -930,9 +986,15 @@
   </svg>
   </div>
 
-  <div id="openInvite" class="seal" aria-hidden="true">
-    <img  src="imagenes/herradura.png" alt="Sello con herradura" />
+<div id="openInvite" class="seal" aria-hidden="true">
+  <img src="imagenes/herradura.png" alt="Sello con herradura" />
+  <div class="arrow-hint" aria-hidden="true">
+    <svg viewBox="0 0 24 24">
+      <path fill="var(--pistache-600)" d="M12 16l-5-5h10z" />
+    </svg>
   </div>
+</div>
+
 
 <div class="paper" role="dialog" aria-label="Mensaje de invitación">
   <div class="inv-text">
@@ -1037,15 +1099,6 @@
     Abrir en Google Maps
   </a>
 
-  <a class="btn btn--whatsapp"
-     href="https://wa.me/528113874311?text=Confirmo%20asistencia%20a%20los%20XV%20de%20Kelly%20Maritza%20🎆🎉🎊🎈✨"
-     target="_blank" rel="noopener" aria-label="Confirmar asistencia por WhatsApp">
-    <!-- icono WhatsApp -->
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor"
-      d="M20.5 3.5A10 10 0 0 0 3 16.4L2 22l5.7-1A10 10 0 1 0 20.5 3.5ZM12 4a8 8 0 0 1 6.8 12.3 8 8 0 0 1-9.2 3.2l-.4-.1-3.3.6.6-3.2-.1-.4A8 8 0 0 1 12 4Zm4.5 9.8c-.2-.1-1.3-.6-1.5-.7s-.3-.1-.5.1-.6.7-.8.9-.3.2-.5.1a6.6 6.6 0 0 1-3.1-2.7c-.2-.3 0-.4.1-.6l.3-.3.2-.4c.1-.2 0-.3 0-.5l-.7-1.6c-.2-.5-.4-.4-.5-.4h-.4c-.1 0-.4.1-.7.3s-.7.7-.7 1.7 1 2 1.1 2.1a9.3 9.3 0 0 0 3.6 3.3c.5.2.9.3 1.2.4.5.2 1 .2 1.3.1.4-.1 1.3-.5 1.5-1s.2-.9.2-1 0-.1-.2-.2Z"/></svg>
-    Confirmar asistencia
-  </a>
-
   <button class="btn btn--ghost" id="saveBtn" title="Guardar esta invitación como imagen">
     <!-- icono guardar -->
     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor"
@@ -1053,11 +1106,31 @@
     Guardar invitación
   </button>
 </div>
+<footer>
+  <small class="footer-note">
+    Te esperamos para celebrar juntos este gran día.
+  </small>
 
-        <footer>
-          <small>Te esperamos para celebrar juntos este gran día. <span aria-hidden="true">★</span></small>
-        </footer>
+  <span class="footer-icons" role="group" aria-label="Opciones de obsequio">
+    <!-- Sobre con dinero -->
+    <svg viewBox="0 0 24 24" role="img" aria-label="Sobre de dinero">
+      <path fill="var(--pistache-600)"
+        d="M2 6.5A2.5 2.5 0 0 1 4.5 4h15A2.5 2.5 0 0 1 22 6.5v11A2.5 2.5 0 0 1 19.5 20h-15A2.5 2.5 0 0 1 2 17.5v-11Zm2.3.2 7.2 5.4c.3.22.7.22 1 0l7.2-5.4c.1-.08.2-.2.3-.3V6.5c0-.55-.45-1-1-1h-15c-.55 0-1 .45-1 1v-.1c.1.1.2.2.3.3Z"/>
+      <path fill="var(--pistache-600)"
+        d="M12 9.25c1 0 1.8.37 2.3.9.2.2.2.5 0 .7l-.7.7c-.2.2-.5.2-.7 0-.2-.2-.5-.32-.9-.32-.6 0-1 .28-1 .62 0 .27.23.48.8.6l.6.13c1.6.35 2.4 1.02 2.4 2.23 0 1.23-1 2.16-2.5 2.28v.46c0 .28-.22.5-.5.5h-.5a.5.5 0 0 1-.5-.5v-.47c-1-.1-1.9-.5-2.5-1.1a.5.5 0 0 1 0-.7l.7-.7c.2-.2.5-.2.7 0 .4.4 1 .64 1.6.64.7 0 1.1-.27 1.1-.63 0-.3-.3-.5-1-.66l-.6-.12c-1.5-.32-2.4-1-2.4-2.2 0-1.2 1-2.1 2.4-2.3V8.3c0-.28.22-.5.5-.5h.5c.28 0 .5.22.5.5v.45Z"/>
+    </svg>
+- O -
+    <!-- Regalo -->
+    <svg viewBox="0 0 24 24" role="img" aria-label="Regalo">
+      <path fill="var(--pistache-600)"
+        d="M20 7h-2.2a3.5 3.5 0 0 0-6.3-2 3.5 3.5 0 0 0-6.3 2H3a1 1 0 0 0-1 1v3h9V8H8.5a1.5 1.5 0 1 1 0-3c1 0 2 .8 2.4 1.8.2.4.8.4 1 0C12.3 5.8 13.3 5 14.5 5a1.5 1.5 0 1 1 0 3H12v3h9V8a1 1 0 0 0-1-1Zm-9 6H2v5a2 2 0 0 0 2 2h5v-7Zm2 0v7h5a2 2 0 0 0 2-2v-5h-7Z"/>
+    </svg>
+  </span>
+</footer>
+
       </section>
+
+      <audio id="bgMusic" src="audio/Goo Goo Dolls.m4a" loop></audio>
     </main>
 
     <script>
@@ -1131,6 +1204,13 @@
         console.log('[TEST] letter exists:', !!letter);
         console.log('[TEST] intro exists:', !!intro);
       })();
+
+
+      document.getElementById("openInvite").addEventListener("click", () => {
+        const music = document.getElementById("bgMusic");
+        music.volume = 0.7;
+        music.play();
+      });
     </script>
   </body>
 
