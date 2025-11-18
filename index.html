@@ -842,6 +842,95 @@
   }
 }
 
+/* Contenedor texto + foto */
+.hero-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+/* el bloque del texto (lo que ya tenías) */
+.hero-text {
+  text-align: center;
+}
+/* Contenedor centrado para el retrato */
+.portrait-wrap{
+  display:flex;
+  justify-content:center;
+  margin: 24px 0 32px;
+}
+
+/* Tarjeta principal del retrato */
+.portrait-card{
+  position:relative;
+  padding:14px;
+  border-radius:32px;
+  max-width: 230px;
+  background:
+    radial-gradient(circle at 20% 0%, #ffffff 0, #fdfcf9 40%, var(--pistache-100) 100%);
+  box-shadow:
+    0 18px 40px rgba(31,41,55,.20),
+    0 0 0 1px rgba(31,41,55,.06);
+  overflow:hidden;
+  text-align:center;
+}
+
+/* halo suave detrás del cuadro */
+.portrait-card::before{
+  content:"";
+  position:absolute;
+  inset:-18px;
+  border-radius:40px;
+  background: radial-gradient(circle at 50% 0%, rgba(146,197,127,.6), transparent 65%);
+  opacity:.35;
+  filter: blur(8px);
+  z-index:-1;
+}
+
+/* marco interior */
+.portrait-inner{
+  position:relative;
+  border-radius:24px;
+  padding:10px;
+  background: linear-gradient(145deg, #ffffff, rgba(255,255,255,.6));
+  box-shadow:
+    inset 0 0 0 1px rgba(31,41,55,.08);
+}
+
+/* foto */
+.portrait-inner img{
+  display:block;
+  width:100%;
+  border-radius:20px;
+}
+
+/* placa con el nombre */
+.portrait-name{
+  margin-top:10px;
+  font-family:'Cinzel', serif;
+  font-size:.90rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color: var(--pistache-600);
+}
+
+/* hover elegante */
+@media (hover:hover){
+  .portrait-card{
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .portrait-card:hover{
+    transform: translateY(-4px) rotate(-1deg);
+    box-shadow:
+      0 24px 50px rgba(31,41,55,.26),
+      0 0 0 1px rgba(31,41,55,.08);
+  }
+}
+
+
+
 /* Ultra-wide (evitar que crezca demasiado) */
 @media (min-width: 1600px) {
   .inv-text h1 { font-size: 72px; }
@@ -1019,23 +1108,43 @@ footer .footer-icons svg:hover{
         <img src="imagenes/herradura.png" alt="Herradura" class="float horseshoe" />
 
         <header>
-          <span class="badge">Fiesta • Tematica • Vaquero</span>
-          <h1 class="title">XV Años</h1>
-          <h1 class="title"><span class="accent">Kelly Maritza</span></h1>
-          <p class="subtitle">Con la bendición de sus padres</p>
-          <p class="parents">Héctor Alejandro &nbsp;•&nbsp; Georgina Hernández</p>
-          <div class="divider" aria-hidden="true">
-            <svg viewBox="0 0 600 34" preserveAspectRatio="none">
-              <path d="M10 17 H260" stroke="rgba(122,94,60,.45)" stroke-width="3" />
-              <path d="M340 17 H590" stroke="rgba(122,94,60,.45)" stroke-width="3" />
-              <g transform="translate(300,17)">
-                <path class="hshoe" d="M0-12c-7 0-12 5-12 12v3h6v-3c0-3 3-6 6-6s6 3 6 6v3h6v-3c0-7-5-12-12-12z" />
-              </g>
-            </svg>
-          </div>
-          <blockquote class="quote">Hay historias y personas que no voy a olvidar y recuerdos como este que siempre voy a guardar.</blockquote>
-          <blockquote class="quote">Porque son parte de mi vida es mi deseo que compartan conmigo en este día tan especial.</blockquote>
-        </header>
+  <div class="hero-header">
+    <!-- Bloque de texto (lo que ya tenías) -->
+    <div class="hero-text">
+      <span class="badge">Fiesta • Tematica • Vaquero</span>
+      <h1 class="title">XV Años</h1>
+      <h1 class="title"><span class="accent">Kelly Maritza</span></h1>
+      <p class="subtitle">Con la bendición de sus padres</p>
+      <p class="parents">Héctor Alejandro &nbsp;•&nbsp; Georgina Hernández</p>
+      <div class="divider" aria-hidden="true">
+        <svg viewBox="0 0 600 34" preserveAspectRatio="none">
+          <path d="M10 17 H260" stroke="rgba(122,94,60,.45)" stroke-width="3" />
+          <path d="M340 17 H590" stroke="rgba(122,94,60,.45)" stroke-width="3" />
+          <g transform="translate(300,17)">
+            <path class="hshoe"
+              d="M0-12c-7 0-12 5-12 12v3h6v-3c0-3 3-6 6-6s6 3 6 6v3h6v-3c0-7-5-12-12-12z" />
+          </g>
+        </svg>
+      </div>
+      <blockquote class="quote">Hay historias y personas que no voy a olvidar y recuerdos como este que siempre voy a guardar.</blockquote>
+      <blockquote class="quote">Porque son parte de mi vida es mi deseo que compartan conmigo en este día tan especial.</blockquote>
+    </div>
+
+    <!-- Foto de Kelly -->
+   <div class="portrait-wrap">
+  <figure class="portrait-card">
+    <div class="portrait-inner">
+      <img src="imagenes/Kelly.png" alt="Retrato de Kelly Maritza">
+    </div>
+    <figcaption class="portrait-name">
+      KELLY MARITZA
+    </figcaption>
+  </figure>
+</div>
+
+  </div>
+</header>
+
 
         <section class="grid" aria-label="Detalles del evento">
           <article class="tile">
